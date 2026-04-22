@@ -1,0 +1,26 @@
+# 自动回复工作流示例
+name: 智能自动回复
+description: 检测到未读消息后自动回复
+
+trigger:
+  type: unread_message
+  app: wechat
+
+actions:
+  # 1. 读取消息
+  - action: read_chat
+    save_as: messages
+  
+  # 2. AI 分析
+  - action: ai_analyze
+    input: "{{messages[-1].text}}"
+    prompt: "请回复这条微信消息，保持友好简洁的风格"
+    save_as: reply
+  
+  # 3. 发送回复
+  - action: send_message
+    text: "{{reply}}"
+  
+  # 4. 记录日志
+  - action: log
+    message: "已自动回复 {{messages[-1].sender}}: {{reply}}"

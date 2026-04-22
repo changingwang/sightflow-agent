@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sightflow-agent"
+version = "0.1.0"
+description = "视觉驱动的通用 IM Agent - 让 AI 像人一样操作微信/WhatsApp"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "大豆", email = "soad666p@github.com"}
+]
+keywords = ["agent", "vision", "wechat", "whatsapp", "automation", "rpa", "openclaw", "hermes"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pyautogui>=0.9.53",
+    "pygetwindow>=0.0.9",
+    "pillow>=9.0",
+    "numpy>=1.21",
+    "opencv-python>=4.5",
+]
+
+[project.optional-dependencies]
+ocr = [
+    "paddleocr>=2.6",
+    "paddlepaddle>=2.4",
+]
+ocr-easy = [
+    "easyocr>=1.6",
+]
+ocr-tesseract = [
+    "pytesseract>=0.3",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+]
+all = [
+    "sightflow-agent[ocr,dev]",
+]
+
+[project.scripts]
+sightflow = "sightflow_agent.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/soad666p/sightflow-agent"
+Repository = "https://github.com/soad666p/sightflow-agent.git"
+Issues = "https://github.com/soad666p/sightflow-agent/issues"
+Documentation = "https://github.com/soad666p/sightflow-agent/docs"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4"]
+ignore = ["E501"]
